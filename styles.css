@@ -1,0 +1,94 @@
+/* ═══════════════════════════════════════════════════════════
+   MVSA Projecten — Gedeelde stijlen
+   Warm kleurenpalet
+   ═══════════════════════════════════════════════════════════ */
+
+:root{
+  --bg: #eef0f3;
+  --card: #ffffff;
+  --ink: #1a2332;
+  --ink-2: #2d3a4a;
+  --muted: #7f8fa0;
+  --line: #dde3ea;
+  --accent: #4e7d9c;
+  --accent-light: rgba(78,125,156,.08);
+  --danger: #c44040;
+  --success: #2d8a5e;
+  --warning: #c8900a;
+  --shadow: 0 1px 3px rgba(0,0,0,.04), 0 6px 16px -4px rgba(0,0,0,.08);
+  --radius: 14px;
+}
+[data-theme="dark"]{
+  --bg: #111315;
+  --card: #1e2024;
+  --ink: #e8ecf0;
+  --ink-2: #c8cdd4;
+  --muted: #6b7078;
+  --line: #2a2d32;
+  --accent: #5a9ab8;
+  --shadow: 0 1px 3px rgba(0,0,0,.2), 0 6px 16px -4px rgba(0,0,0,.3);
+}
+
+*{ box-sizing:border-box; margin:0; padding:0; }
+html, body{
+  background:var(--bg); color:var(--ink);
+  font-family:'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  -webkit-font-smoothing:antialiased;
+  min-height:100vh;
+}
+
+/* ── Auth bar ── */
+.auth-bar{
+  position:fixed; top:16px; right:24px; z-index:90;
+  display:none; align-items:center; gap:10px;
+  background:rgba(255,255,255,.92); backdrop-filter:blur(12px);
+  border:1px solid var(--line); border-radius:999px;
+  padding:6px 8px 6px 6px;
+  box-shadow:var(--shadow);
+  font-family:'Inter',sans-serif; font-size:12px;
+}
+[data-theme="dark"] .auth-bar{
+  background:rgba(30,32,36,.92);
+}
+.auth-bar .ab-avatar{
+  width:32px; height:32px; border-radius:50%; flex:none;
+  background:var(--ink); color:#fff;
+  display:flex; align-items:center; justify-content:center;
+  font-size:11px; font-weight:800; overflow:hidden;
+}
+.auth-bar .ab-avatar img{ width:100%; height:100%; object-fit:cover; display:block; }
+.auth-bar .ab-name{
+  font-weight:700; font-size:12px; color:var(--ink);
+  max-width:120px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;
+}
+.auth-bar .ab-logout{
+  background:none; border:none; cursor:pointer; font-family:inherit;
+  font-size:10px; letter-spacing:.06em; text-transform:uppercase;
+  font-weight:600; color:var(--muted); padding:4px 8px;
+  border-radius:999px; transition:all .15s;
+}
+.auth-bar .ab-logout:hover{ color:var(--danger); background:rgba(196,64,64,.06); }
+.auth-bar .ab-login{
+  display:inline-flex; align-items:center; gap:6px;
+  background:var(--ink); color:#fff; text-decoration:none;
+  padding:8px 16px; border-radius:999px;
+  font-size:11px; letter-spacing:.1em; text-transform:uppercase;
+  font-weight:700; transition:background .15s;
+}
+.auth-bar .ab-login:hover{ background:var(--accent); }
+
+/* ── Toast ── */
+.toast{
+  position:fixed; bottom:28px; left:50%; transform:translateX(-50%);
+  background:var(--ink); color:#fff; padding:12px 24px; border-radius:10px;
+  font-size:13px; z-index:999; box-shadow:var(--shadow);
+  animation:toastIn .3s ease;
+}
+@keyframes toastIn{
+  from{opacity:0;transform:translateX(-50%) translateY(8px)}
+  to{opacity:1;transform:translateX(-50%) translateY(0)}
+}
+
+@media print{
+  .auth-bar{ display:none !important; }
+}

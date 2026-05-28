@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="nl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <title>Projectenoverzicht.nl</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="app.css" />
+</head>
+<body>
+
+<!-- LOADING SCREEN -->
+<div id="loading-screen">
+  <div class="logo-box">
+    <svg width="44" height="57" viewBox="0 0 24 32">
+      <path d="M12 0C7.03 0 3 4.03 3 9c0 6.75 9 23 9 23s9-16.25 9-23c0-4.97-4.03-9-9-9z" fill="#7EC8C0"/>
+      <circle cx="12" cy="9" r="3.5" fill="white"/>
+    </svg>
+  </div>
+  <div class="app-name">Projectenoverzicht.nl</div>
+  <div class="credit">A Galgenwibo Design</div>
+</div>
+
+<!-- APP -->
+<div id="app">
+
+  <div id="app-bar">
+    <div class="bar-logo">
+      <svg width="34" height="34" viewBox="0 0 40 40">
+        <rect width="40" height="40" rx="10" fill="white"/>
+        <path d="M20 7C14.48 7 10 11.48 10 17c0 8 10 16 10 16s10-8 10-16c0-5.52-4.48-10-10-10z" fill="#7EC8C0"/>
+        <circle cx="20" cy="17" r="4" fill="white"/>
+      </svg>
+      <span class="bar-name">Projectenoverzicht.nl</span>
+    </div>
+    <button class="bar-search" id="appbar-search">ZOEKEN</button>
+  </div>
+
+  <div id="tab-bar">
+    <button data-tab="kaart"     class="active">KAART</button>
+    <button data-tab="lijst"            >LIJST</button>
+    <button data-tab="universe"         >UNIVERSE</button>
+    <button data-tab="profielen"        >PROFIELEN</button>
+  </div>
+
+  <div id="content">
+
+    <!-- KAART -->
+    <div id="kaart-view" class="view active" style="position:relative;">
+      <div id="map"></div>
+      <div id="map-loading-toast">📍 Adressen worden geladen…</div>
+      <div id="map-preview">
+        <button class="close-btn">×</button>
+        <div class="preview-hero"></div>
+        <div class="preview-meta"></div>
+        <button class="preview-open-btn">Open project →</button>
+      </div>
+    </div>
+
+    <!-- LIJST -->
+    <div id="lijst-view" class="view">
+      <div class="list-toolbar">
+        <button class="view-toggle-btn active" id="btn-view-large">≡</button>
+        <button class="view-toggle-btn"        id="btn-view-small">⊞</button>
+        <span id="list-count">0 projecten</span>
+      </div>
+      <div id="list-scroll"></div>
+    </div>
+
+    <!-- UNIVERSE -->
+    <div id="universe-view" class="view">
+      <div class="universe-icon">🌐</div>
+      <div class="universe-title">Universe</div>
+      <div class="universe-sub">Network visualisatie van alle verbindingen</div>
+    </div>
+
+    <!-- PROFIELEN -->
+    <div id="profielen-view" class="view">
+      <div class="filter-bar">
+        <button class="filter-pill active" data-filter="bedrijven">bedrijven</button>
+        <button class="filter-pill"        data-filter="labels">labels</button>
+        <button class="filter-pill"        data-filter="awards">awards</button>
+        <button class="add-btn">+</button>
+      </div>
+      <div class="contacts-list"></div>
+    </div>
+
+    <!-- DETAIL OVERLAY -->
+    <div id="detail-overlay">
+      <div class="detail-appbar">
+        <svg width="34" height="34" viewBox="0 0 40 40">
+          <rect width="40" height="40" rx="10" fill="white"/>
+          <path d="M20 7C14.48 7 10 11.48 10 17c0 8 10 16 10 16s10-8 10-16c0-5.52-4.48-10-10-10z" fill="#7EC8C0"/>
+          <circle cx="20" cy="17" r="4" fill="white"/>
+        </svg>
+        <span>Projectenoverzicht.nl</span>
+      </div>
+      <div class="detail-hero"></div>
+      <div class="detail-tabs"></div>
+      <div class="detail-fields"></div>
+      <div class="detail-footer">
+        <button class="detail-edit-btn">BEWERKEN</button>
+      </div>
+    </div>
+
+    <!-- ZOEKEN OVERLAY -->
+    <div id="search-overlay">
+      <div class="search-bar">
+        <button class="search-back" id="search-back">←</button>
+        <input type="search" id="search-input" placeholder="Zoek project, stad…" />
+      </div>
+      <div id="search-results"></div>
+    </div>
+
+  </div>
+
+  <div id="bottom-bar">
+    <button id="btn-zoeken">ZOEKEN</button>
+    <button id="btn-filters">FILTERS</button>
+    <button id="btn-favorieten">FAVORIETEN</button>
+    <button id="btn-dashboard">DASHBOARD</button>
+  </div>
+
+</div>
+
+<!-- SCRIPTS — zelfde volgorde als bestaande website, alles plat -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="supabase.js"></script>
+<script src="utils.js"></script>
+<script src="geocode.js"></script>
+<script src="map-view.js"></script>
+<script src="list-view.js"></script>
+<script src="project-detail.js"></script>
+<script src="profiles-view.js"></script>
+<script src="search-overlay.js"></script>
+<script src="app.js"></script>
+
+</body>
+</html>
